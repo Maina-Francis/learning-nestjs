@@ -4,6 +4,7 @@ import {
   Post,
   Param,
   HttpCode,
+  HostParam,
   Header,
   Redirect,
 } from '@nestjs/common';
@@ -11,7 +12,9 @@ import {
 
 @Controller('cats')
 export class CatsController {
-  // Get Request
+  // Nest provides decorators for all standard HTTP methods: @Get(), @Post(), @Put(), @Delete(), @Patch(), @Options() and @Head(). In addition, @All() defines an endpoint that handles all of them.
+
+  //**** */ Get Request*****
   @Get()
   findAll() {
     return 'This action returns all cats';
@@ -48,4 +51,21 @@ export class CatsController {
   }
 }
 
-// Nest provides decorators for all standard HTTP methods: @Get(), @Post(), @Put(), @Delete(), @Patch(), @Options() and @Head(). In addition, @All() defines an endpoint that handles all of them.
+// **** Sub-Domain Routing*****
+// The @Controller decorator can take a 'host' option to require that the HTTP host of the incoming request matches some specific value
+@Controller({ host: 'admin.example.com' })
+export class AdminController {
+  @Get('admin')
+  index(): string {
+    return 'Admin Page';
+  }
+}
+
+// Similar to a route 'path', 'hosts' ooption can use tokens to capture the dynamic value at that position in the host name. Host parameters declared in this way can be accessed using the '@HostParam()' decorator
+@Controller({ host: ':account.example.com' })
+export class AccountController {
+  @Get()
+  getInfo(@HostParam() params: string) {
+    return params;
+  }
+}
