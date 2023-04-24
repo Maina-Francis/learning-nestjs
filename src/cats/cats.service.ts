@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Cat } from '../interfaces/cats.interfaces';
+import { Cat } from './interfaces/cats.interfaces';
 
 @Injectable() //The @Injectable() decorator marks a class as a provider.
 export class CatsService {

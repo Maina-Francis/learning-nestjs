@@ -10,7 +10,7 @@ import {
   Redirect,
 } from '@nestjs/common';
 // import { Request } from 'express';
-import { Cat } from '../interfaces/cats.interfaces';
+import { Cat } from './interfaces/cats.interfaces';
 import { CatsService } from './cats.service';
 
 @Controller('cats')
