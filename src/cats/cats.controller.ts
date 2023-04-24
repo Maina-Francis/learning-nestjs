@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Body,
   Param,
   HttpCode,
   HostParam,
@@ -9,15 +10,19 @@ import {
   Redirect,
 } from '@nestjs/common';
 // import { Request } from 'express';
+import { Cat } from '../interfaces/cats.interfaces';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
 export class CatsController {
   // Nest provides decorators for all standard HTTP methods: @Get(), @Post(), @Put(), @Delete(), @Patch(), @Options() and @Head(). In addition, @All() defines an endpoint that handles all of them.
 
+  constructor(private catsService: CatsService) {} //Dependancy Injection
+
   //**** */ Get Request*****
   @Get()
-  findAll() {
-    return 'This action returns all cats';
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 
   // handling Redirects
