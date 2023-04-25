@@ -8,6 +8,9 @@ import {
   HostParam,
   Header,
   Redirect,
+  HttpException,
+  HttpStatus,
+  ForbiddenException,
 } from '@nestjs/common';
 // import { Request } from 'express';
 import { Cat } from './interfaces/cats.interfaces';
@@ -20,9 +23,24 @@ export class CatsController {
   constructor(private catsService: CatsService) {} //Dependancy Injection
 
   //**** */ Get Request*****
+  // @Get()
+  // async findAll(): Promise<Cat[]> {
+  //   return this.catsService.findAll();
+  // }
+
+  // Throwing standard exceptions
   @Get()
-  async findAll(): Promise<Cat[]> {
-    return this.catsService.findAll();
+  async findAll() {
+    // try {
+    //   await this.catsService.findAll();
+    // } catch (error) {
+    //   throw new HttpException(
+    //     { status: HttpStatus.FORBIDDEN, error: 'This is a custom message' },
+    //     HttpStatus.FORBIDDEN,
+    //     { cause: error },
+    //   );
+    // }
+    throw new ForbiddenException();
   }
 
   // handling Redirects
@@ -74,3 +92,6 @@ export class AccountController {
     return params;
   }
 }
+
+// ******EXCEPTION FILTERS ******
+// The global exception filter partially supports the http-errors library. Basically, any thrown exception containing the statusCode and message properties will be properly populated and sent back as a response.
