@@ -15,6 +15,7 @@ import {
 // import { Request } from 'express';
 import { Cat } from './interfaces/cats.interfaces';
 import { CatsService } from './cats.service';
+import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -51,8 +52,8 @@ export class CatsController {
   @Post()
   // @HttpCode(210) //We can set custom status codes using the @HttpCode decorator at a handler level
   @Header('Cache-Control', 'none')
-  create(): string {
-    return 'This action adds a new cat';
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
   }
 
   // Route wildcards
