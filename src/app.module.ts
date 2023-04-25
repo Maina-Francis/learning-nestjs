@@ -1,9 +1,4 @@
-import {
-  Module,
-  MiddlewareConsumer,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { logger } from './cats/logger.middleware';
 
 import { AppController } from './app.controller';
@@ -20,7 +15,7 @@ import { CatsController } from './cats/cats.controller';
 // Modules that include middleware have to implement the NestModule interface using the configure() method of the module class
 export class AppModule implements NestModule {
   async configure(consumer: MiddlewareConsumer) {
-    consumer.apply(logger).forRoutes(CatsController);
+    await consumer.apply(logger).forRoutes(CatsController);
   }
 }
 
