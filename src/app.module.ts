@@ -4,7 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { LoggerMiddleware } from './cats/logger.middleware';
+import { logger } from './cats/logger.middleware';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -20,7 +20,7 @@ import { CatsController } from './cats/cats.controller';
 // Modules that include middleware have to implement the NestModule interface using the configure() method of the module class
 export class AppModule implements NestModule {
   async configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(CatsController);
+    consumer.apply(logger).forRoutes(CatsController);
   }
 }
 
