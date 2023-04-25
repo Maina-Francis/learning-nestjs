@@ -16,3 +16,5 @@ export class ParseIntPipe implements PipeTransform<string, number> {
     return val;
   }
 }
+
+// Parse* pipes expect a parameter's value to be defined. They throw an exception upon receiving null or undefined values. To allow an endpoint to handle missing querystring parameter values, we have to provide a default value to be injected before the Parse* popes operate on these values. The 'DefaultValuePipe' serves that purpose
