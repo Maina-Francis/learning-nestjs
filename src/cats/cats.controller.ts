@@ -11,13 +11,18 @@ import {
   HttpException,
   HttpStatus,
   ForbiddenException,
+  UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 // import { Request } from 'express';
 import { Cat } from './interfaces/cats.interfaces';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
+import { RolesGuard } from './roles.guard';
+import { Roles } from './roles.decorator';
 
 @Controller('cats')
+@UseGuards(RolesGuard)
 export class CatsController {
   // Nest provides decorators for all standard HTTP methods: @Get(), @Post(), @Put(), @Delete(), @Patch(), @Options() and @Head(). In addition, @All() defines an endpoint that handles all of them.
 
@@ -50,6 +55,7 @@ export class CatsController {
 
   // Post Request
   @Post()
+  @Roles('admin')
   // @HttpCode(210) //We can set custom status codes using the @HttpCode decorator at a handler level
   @Header('Cache-Control', 'none')
   async create(@Body() createCatDto: CreateCatDto) {
