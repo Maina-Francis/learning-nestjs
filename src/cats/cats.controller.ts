@@ -13,6 +13,7 @@ import {
   ForbiddenException,
   UseGuards,
   SetMetadata,
+  UseInterceptors,
 } from '@nestjs/common';
 // import { Request } from 'express';
 import { Cat } from './interfaces/cats.interfaces';
@@ -20,9 +21,11 @@ import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
 import { RolesGuard } from './roles.guard';
 import { Roles } from './roles.decorator';
+import { LoggingInterceptor } from './logging.interceptor';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
   // Nest provides decorators for all standard HTTP methods: @Get(), @Post(), @Put(), @Delete(), @Patch(), @Options() and @Head(). In addition, @All() defines an endpoint that handles all of them.
 
@@ -46,7 +49,8 @@ export class CatsController {
     //     { cause: error },
     //   );
     // }
-    throw new ForbiddenException();
+    // throw new ForbiddenException();
+    return 'All the cats are here';
   }
 
   // handling Redirects
